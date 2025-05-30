@@ -6,6 +6,8 @@ import com.example.Souq.auth.dto.SignupRequest;
 import com.example.Souq.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,6 +21,7 @@ public class AuthController
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request)
     {
+
         AuthResponse response = authService.login(request);
 
         return ResponseEntity.ok(response);
@@ -30,4 +33,5 @@ public class AuthController
         AuthResponse response = authService.register(request);
         return ResponseEntity.ok(response);
     }
+
 }

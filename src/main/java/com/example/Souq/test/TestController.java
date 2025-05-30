@@ -15,7 +15,7 @@ public class TestController {
     }
 
     @PreAuthorize("hasRole('BUYER')")
-    @GetMapping("/test/buyer")
+    @GetMapping("/buyer")
     public ResponseEntity<String> testBuyer() {
         return ResponseEntity.ok("Hello Buyer!");
     }
@@ -33,7 +33,7 @@ public class TestController {
     }
 
     //@PreAuthorize("hasRole('BUYER')")
-    @GetMapping("/test/buyerr")
+    @GetMapping("/buyerr")
     public ResponseEntity<?> testBuyer(Authentication authentication) {
         System.out.println("✅ User: " + authentication.getName());
         System.out.println("✅ Authorities: " + authentication.getAuthorities());

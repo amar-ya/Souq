@@ -1,9 +1,10 @@
 package com.example.Souq.product;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.example.Souq.user.UserEntity;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "products")
@@ -16,4 +17,9 @@ public class ProductEntity
     private String description;
     private double price;
     private int quantity;
+    private LocalDateTime createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "seller_id", nullable = false)
+    private UserEntity seller;
 }
