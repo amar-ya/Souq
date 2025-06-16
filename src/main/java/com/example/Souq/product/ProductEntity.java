@@ -12,7 +12,9 @@ import java.time.LocalDateTime;
 public class ProductEntity
 {
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "prod_seq")
+    @SequenceGenerator(name = "prod_seq", sequenceName = "prod_seq", allocationSize = 1)
+    private Integer id;
     private String name;
     private String description;
     private double price;

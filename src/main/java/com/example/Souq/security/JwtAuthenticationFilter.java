@@ -28,6 +28,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter
     private final UserRepository userRepository;
 
 
+
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
@@ -37,6 +38,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter
         final String authHeader = request.getHeader("Authorization");
         final String token;
         final String userEmail;
+
+        System.out.println("🔍 Authorization Header: " + authHeader);
+
 
         //Check if header exists and starts with bearer
         if(authHeader == null || !authHeader.startsWith("Bearer "))
@@ -58,16 +62,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter
         //Only set authentication if not already done
         if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null)
         {
-            //debug why im getting 403 in postman ckecking authorization header
-            System.out.println("🔎 Checking Authorization header: " + request.getHeader("Authorization"));
-
             UserEntity user = userRepository.findByEmail(userEmail).orElse(null);
             if (user != null) {
-                System.out.println("✅ JWT Filter hit");
-                System.out.println("Email from token: " + userEmail);
-                System.out.println("User found: " + user.getEmail() + ", Role: " + user.getRole());
-                System.out.println("Setting authority: ROLE_" + user.getRole());
-
                 CustomUserDetails userDetails = new CustomUserDetails(user);
 
                 UsernamePasswordAuthenticationToken authToken =

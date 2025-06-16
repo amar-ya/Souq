@@ -4,11 +4,11 @@
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
 
-    <changeSet id="1" author="ammar">
-        <createSequence sequenceName="product_seq" startValue="1" incrementBy="1"/>
+    <changeSet id="Acreate-seq" author="ammar">
+        <createSequence sequenceName="prod_seq" startValue="1" incrementBy="1"/>
     </changeSet>
 
-    <changeSet id="add-products-table" author="ammarYagoub">
+    <changeSet id="Aadd-products-table-2" author="ammarYagoub">
         <createTable tableName="products">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true"/>

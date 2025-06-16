@@ -1,0 +1,49 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+<changeSet id="create-cart-items-table" author="AmmarYagoub">
+
+    <!-- Create sequence -->
+    <createSequence
+            sequenceName="cart_seq"
+            startValue="1"
+            incrementBy="1" />
+
+    <!-- Create cart_items table -->
+    <createTable tableName="cart_items">
+        <column name="id" type="INT">
+            <constraints primaryKey="true" nullable="false"/>
+        </column>
+        <column name="product_id" type="INT">
+            <constraints nullable="false"/>
+        </column>
+        <column name="buyer_id" type="INT">
+            <constraints nullable="false"/>
+        </column>
+        <column name="quantity" type="INT">
+            <constraints nullable="false"/>
+        </column>
+        <column name="created_at" type="TIMESTAMP"/>
+    </createTable>
+
+    <!-- Add foreign key to products -->
+    <addForeignKeyConstraint
+            baseTableName="cart_items"
+            baseColumnNames="product_id"
+            referencedTableName="products"
+            referencedColumnNames="id"
+            constraintName="fk_cart_items_product"/>
+
+    <!-- Add foreign key to users -->
+    <addForeignKeyConstraint
+            baseTableName="cart_items"
+            baseColumnNames="buyer_id"
+            referencedTableName="users"
+            referencedColumnNames="id"
+            constraintName="fk_cart_items_buyer"/>
+
+</changeSet>
+
+</databaseChangeLog>

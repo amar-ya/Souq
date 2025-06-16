@@ -34,6 +34,9 @@ public class SecurityConfig
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/buyerr").hasRole("BUYER")
+                        .requestMatchers("/products/add").hasRole("SELLER")
+                        .requestMatchers("/products/browse").permitAll()
+                        .requestMatchers("/cart/**").hasAnyRole("BUYER", "SELLER")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
