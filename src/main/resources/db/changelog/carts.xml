@@ -3,7 +3,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-<changeSet id="create-cart-items-table" author="AmmarYagoub">
+<changeSet id="create-cart-seq" author="AmmarYagoub">
 
     <!-- Create sequence -->
     <createSequence
@@ -11,39 +11,35 @@
             startValue="1"
             incrementBy="1" />
 
-    <!-- Create cart_items table -->
-    <createTable tableName="cart_items">
-        <column name="id" type="INT">
-            <constraints primaryKey="true" nullable="false"/>
-        </column>
-        <column name="product_id" type="INT">
-            <constraints nullable="false"/>
-        </column>
-        <column name="buyer_id" type="INT">
-            <constraints nullable="false"/>
-        </column>
-        <column name="quantity" type="INT">
-            <constraints nullable="false"/>
-        </column>
-        <column name="created_at" type="TIMESTAMP"/>
-    </createTable>
-
-    <!-- Add foreign key to products -->
-    <addForeignKeyConstraint
-            baseTableName="cart_items"
-            baseColumnNames="product_id"
-            referencedTableName="products"
-            referencedColumnNames="id"
-            constraintName="fk_cart_items_product"/>
-
-    <!-- Add foreign key to users -->
-    <addForeignKeyConstraint
-            baseTableName="cart_items"
-            baseColumnNames="buyer_id"
-            referencedTableName="users"
-            referencedColumnNames="id"
-            constraintName="fk_cart_items_buyer"/>
-
 </changeSet>
+
+    <!-- Create cart_items table -->
+    <changeSet id="20250630-001-create-carts-table" author="ammar">
+        <createTable tableName="carts">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="INT">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20250630-002-create-carts-user-fk" author="ammar">
+        <addForeignKeyConstraint
+                baseTableName="carts"
+                baseColumnNames="user_id"
+                constraintName="fk_cart_user"
+                referencedTableName="users"
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="20250630-003-create-carts-user-index" author="ammar">
+        <createIndex indexName="idx_carts_user_id" tableName="carts">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
 
 </databaseChangeLog>

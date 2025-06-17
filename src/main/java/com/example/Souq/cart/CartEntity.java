@@ -1,34 +1,27 @@
 package com.example.Souq.cart;
 
-import com.example.Souq.product.ProductEntity;
+
+import com.example.Souq.CartItem.CartItemEntity;
 import com.example.Souq.user.UserEntity;
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "cart_items")
+@Table(name = "carts")
 @Data
-public class CartEntity
-{
+public class CartEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cart_seq")
     @SequenceGenerator(name = "cart_seq", sequenceName = "cart_seq", allocationSize = 1)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private ProductEntity product;
+    @OneToOne
+    @JoinColumn(name = "user_id", unique = true, nullable = false)
+    private UserEntity user;
 
-    @ManyToOne
-    @JoinColumn(name = "buyer_id", nullable = false)
-    private UserEntity buyer;
-
-    private int quantity;
-
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CartItemEntity> items = new ArrayList<>();
 }

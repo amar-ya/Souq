@@ -9,4 +9,5 @@
     <include file="db/changelog/products.xml"/>
     <include file="db/changelog/history.xml"/>
     <include file="db/changelog/carts.xml"/>
+    <include file="db/changelog/cartItems.xml"/>
 </databaseChangeLog>
