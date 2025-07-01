@@ -1,7 +1,8 @@
-package com.example.Souq.CartItem;
+package com.example.Souq.cart.CartItem;
 
 import com.example.Souq.cart.CartEntity;
 import com.example.Souq.product.ProductEntity;
+import com.example.Souq.user.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -18,4 +19,8 @@ public interface CartItemRepository extends JpaRepository<CartItemEntity, Intege
 
     @Query("select c from CartItemEntity c where c.createdAt < :expirationThreshold")
     List<CartItemEntity> findByCreatedAtBefore(LocalDateTime expirationThreshold);
+
+    @Query("select c from CartItemEntity c where c.cart = :cart")
+    List<CartItemEntity> findByCart(CartEntity cart);
+
 }

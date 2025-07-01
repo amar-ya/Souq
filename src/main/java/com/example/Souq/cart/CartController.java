@@ -1,6 +1,6 @@
 package com.example.Souq.cart;
 
-import com.example.Souq.CartItem.CartItemEntity;
+import com.example.Souq.cart.CartItem.CartItemEntity;
 import com.example.Souq.auth.dto.CartRemoveRequestDto;
 import com.example.Souq.auth.dto.CartRequestDto;
 import com.example.Souq.user.UserEntity;

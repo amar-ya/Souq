@@ -1,6 +1,7 @@
-package com.example.Souq.order;
+package com.example.Souq.order.orderItem;
 
 
+import com.example.Souq.order.OrderEntity;
 import com.example.Souq.product.ProductEntity;
 import jakarta.persistence.*;
 import lombok.Data;

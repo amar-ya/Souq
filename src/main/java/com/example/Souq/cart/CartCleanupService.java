@@ -1,7 +1,7 @@
 package com.example.Souq.cart;
 
-import com.example.Souq.CartItem.CartItemEntity;
-import com.example.Souq.CartItem.CartItemRepository;
+import com.example.Souq.cart.CartItem.CartItemEntity;
+import com.example.Souq.cart.CartItem.CartItemRepository;
 import com.example.Souq.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;

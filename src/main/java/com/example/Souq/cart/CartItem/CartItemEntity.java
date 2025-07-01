@@ -1,4 +1,4 @@
-package com.example.Souq.CartItem;
+package com.example.Souq.cart.CartItem;
 
 import com.example.Souq.cart.CartEntity;
 import com.example.Souq.product.ProductEntity;

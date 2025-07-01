@@ -1,7 +1,7 @@
 package com.example.Souq.cart;
 
 
-import com.example.Souq.CartItem.CartItemEntity;
+import com.example.Souq.cart.CartItem.CartItemEntity;
 import com.example.Souq.user.UserEntity;
 import jakarta.persistence.*;
 import lombok.Data;
