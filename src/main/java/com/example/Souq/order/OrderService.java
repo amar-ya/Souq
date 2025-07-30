@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -69,10 +68,29 @@ public class OrderService
         order.setTotalPrice(total);
         order = orderRepository.save(order);
         orderItemRepository.saveAll(orderItems);
+        order.setCreatedAt(LocalDateTime.now());
 
         //4. Clean up the cart
         cartItemRepository.deleteAll(cartItems);
 
         return order;
+    }
+
+    public void confirmPayment(Integer orderId, UserEntity user)
+    {
+        OrderEntity order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order Not Found"));
+
+        if(!order.getUser().getId().equals(user.getId()))
+        {
+            throw new RuntimeException("You are not authorized to pay for this order");
+        }
+
+        if(!order.getStatus().equals("PLACED"))
+        {
+            throw new RuntimeException("Order is not in a payable state");
+        }
+        order.setStatus("PAID");
+        orderRepository.save(order);
     }
 }

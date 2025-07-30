@@ -1,6 +1,7 @@
 package com.example.Souq.product;
 
 import com.example.Souq.auth.dto.ProductRequestDto;
+import com.example.Souq.auth.dto.ProductResponse;
 import com.example.Souq.user.UserEntity;
 import com.example.Souq.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,13 @@ public class ProductController
     public ResponseEntity<?> getAllProduct()
     {
         List<ProductEntity> products = productRepository.findAll();
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("/public/browse")
+    public ResponseEntity<List<ProductResponse>> getAllPublicProducts()
+    {
+        List<ProductResponse> products = productService.getAllPublicProducts();
         return ResponseEntity.ok(products);
     }
 }

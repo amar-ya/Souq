@@ -38,6 +38,8 @@ public class SecurityConfig
                         .requestMatchers("/products/browse").permitAll()
                         .requestMatchers("/cart/**").hasAnyRole("BUYER", "SELLER")
                         .requestMatchers("/order/**").hasAnyRole("BUYER", "SELLER")
+                        .requestMatchers("products/public/*").permitAll()
+                        .requestMatchers("order/{orderId}/pay").hasAnyRole("BUYER", "SELLER")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

@@ -21,6 +21,7 @@ public class ProductEntity
     private int quantity;
     private LocalDateTime createdAt;
 
+
     @ManyToOne
     @JoinColumn(name = "seller_id", nullable = false)
     private UserEntity seller;
