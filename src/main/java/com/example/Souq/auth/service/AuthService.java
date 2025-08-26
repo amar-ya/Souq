@@ -4,6 +4,7 @@ import com.example.Souq.auth.dto.AuthResponse;
 import com.example.Souq.auth.dto.LoginRequest;
 import com.example.Souq.auth.dto.SignupRequest;
 import com.example.Souq.security.JwtUtil;
+import com.example.Souq.user.Role;
 import com.example.Souq.user.UserEntity;
 import com.example.Souq.user.UserRepository;
 import lombok.AllArgsConstructor;
@@ -62,9 +63,15 @@ public class AuthService
         user.setEmail(request.getEmail());
         user.setPn(request.getPn());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole(request.getRole());
         user.setCreatedAt(LocalDateTime.now());
         user.setVerified(true); // or false if you want to handle verification later
+        if(request.getRole() != null)
+        {
+            user.setRole(request.getRole());
+        }else {
+            user.setRole(Role.BUYER); // default role if not provided
+        }
+
 
         //test to see why do i get 403 forbidden response
         System.out.println("✅ User saved: " + user.getEmail());
